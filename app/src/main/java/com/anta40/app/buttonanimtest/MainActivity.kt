@@ -33,33 +33,27 @@ class MainActivity : AppCompatActivity() {
                     val btnYes = customView.findViewById<Button>(R.id.btn_dialog_yes)
                     val btnNo = customView.findViewById<Button>(R.id.btn_dialog_no)
 
-                    btnYes.setOnClickListener {
-                        dialogBuilder.setOnDismissListener {
-                            it.dismiss()
-                        }
-                    }
-
-                    btnNo.setOnClickListener {
-                        dialogBuilder.setOnDismissListener {
-                            it.dismiss()
-                        }
-                    }
-
-
                     /*
                     taken from https://stackoverflow.com/questions/9467026/changing-position-of-the-dialog-on-screen-android
                      */
                     val alert = dialogBuilder.create()
                     val dialogWindow = alert.window
-                    dialogWindow!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-                    val layoutParams = dialogWindow.attributes
-                    layoutParams.gravity = Gravity.CENTER_HORIZONTAL
+
+                    val layoutParams = dialogWindow!!.attributes
+                    layoutParams.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
                     layoutParams.flags = layoutParams.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
                     dialogWindow.attributes = layoutParams
+                    dialogWindow.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 
+                    btnYes.setOnClickListener {
+                        alert.dismiss()
+                    }
+
+                    btnNo.setOnClickListener {
+                        alert.dismiss()
+                    }
 
                     alert.show()
-
                     true
                 }
             }
